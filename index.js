@@ -4,11 +4,15 @@ const app = express()
 const session = require('express-session')
 const varMiddleware = require('./middleware/variables')
 
+const flash = require('connect-flash')
+
 const mongoose = require('mongoose')
 const MongoStore = require('connect-mongodb-session')(session)
 
 const homeRoute = require('./routes/index');
-const authRoute = require('./routes/authorization');
+const accountRoute = require('./routes/authorization');
+const walletRoute = require('./routes/wallet');
+
 
 const Handlebars = require('handlebars')
 const exphbs = require("express-handlebars");
@@ -51,6 +55,8 @@ app.use(session({
     saveUninitialized: false,
     store
 }))
+app.use(flash())
+
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }))
@@ -61,14 +67,13 @@ app.use(varMiddleware)
 
 
 app.use('/', homeRoute)
-app.use('/auth', authRoute)
+app.use('/account', accountRoute)
+app.use('/wallet', walletRoute)
+
 app.get('/*', function (req, res) {
     res.status(404)
     res.end()
 });
-
-
-
 
 
 async function start() {

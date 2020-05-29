@@ -1,0 +1,22 @@
+
+
+    <h2>Вход</h2>
+    {{#if loginErr }}<p class="alert">{{loginErr}}</p>{{/if}}
+    <form action="/account/login" method="POST">
+      <div class="input-field">
+        <input id="email" type="text" class="validate" name="email" required>
+        <label for="email">email</label>
+        <span class="helper-text" data-error="Введите email"></span>
+      </div>
+      <div class="input-field">
+        <input id="password" type="password" name="password" class="autocomplete" required>
+        <label for="password">password</label>
+        <span class="helper-text" data-error="Введите password"></span>
+      </div>
+      <button class="btn" type="submit">Войти</button>
+    </form>
+
+  
+
+
+

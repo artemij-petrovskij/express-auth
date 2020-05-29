@@ -1,14 +1,16 @@
 <nav>
     <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Logo</a>
+        <a href="#" class="brand-logo">CASHER</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
 
             {{#if isAuth }}
-                <li><a href="/">Home</a></li>
-                <li><a href="/">test</a></li>
-                <li><a href="/auth/logout">Logout</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/wallet">Wallet</a></li>
+            <li><a href="/account/logout">Logout</a></li>
             {{else}}
-                <li><a href="/auth/login">Login</a></li>
+
+            <li {{#if isLogin }} class="active" {{else}}{{/if}}><a href="/account/login">Войти</a></li>
+            <li {{#if isSignUp }} class="active" {{else}}{{/if}}><a href="/account/signup">Зарегистрироваться</a></li>
             {{/if}}
 
         </ul>
