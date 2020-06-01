@@ -13,7 +13,6 @@ const homeRoute = require('./routes/index');
 const accountRoute = require('./routes/authorization');
 const walletRoute = require('./routes/wallet');
 
-
 const Handlebars = require('handlebars')
 const exphbs = require("express-handlebars");
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
@@ -22,11 +21,6 @@ var hbs = exphbs.create({
     extname: 'hbs',
     handlebars: allowInsecurePrototypeAccess(Handlebars)
 });
-
-
-
-
-
 
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
@@ -41,7 +35,6 @@ if (!!!PASS) {
 }
 
 const MONGODB_URI = `mongodb+srv://user1:${PASS}@cluster0-nmc55.mongodb.net/Users`
-
 
 const store = new MongoStore({
     collection: 'sessions',
@@ -61,11 +54,7 @@ app.use(flash())
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }))
 
-
 app.use(varMiddleware)
-
-
-
 app.use('/', homeRoute)
 app.use('/account', accountRoute)
 app.use('/wallet', walletRoute)

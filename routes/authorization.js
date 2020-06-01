@@ -24,7 +24,6 @@ router.post('/login', async (req, res) => {
     const issetUser = await User.findOne({ email })
 
     if (issetUser) {
-        //user существует
         if (password === issetUser.password) {
             req.session.isAuthenticated = true
             req.session.save(err => {
@@ -48,34 +47,41 @@ router.post('/login', async (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
-    const { email, password } = req.body
+    const { email, password, confirm } = req.body
     const issetUser = await User.findOne({ email })
     if (issetUser) {
         req.flash('signupErr','Пользователь с таким email зарегистрирован')
         res.redirect('/account/signup')
 
     } else {
-        const newUser = new User({
-            email: email,
-            password: password
-        })
-
-        try {
-            await newUser.save()
-            req.session.isAuthenticated = true
-            req.session.save(err => {
-                if (err) {
-                    console.log(err)
-                } else {
-                    res.redirect('/')
-                }
+        if(confirm === password){
+            
+            const newUser = new User({
+                email: email,
+                password: password
             })
-
-        }
-        catch (e) {
-            console.log(e)
+        
+            try {
+                await newUser.save()
+                req.session.isAuthenticated = true
+                req.session.save(err => {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        res.redirect('/')
+                    }
+                })
+            
+            }
+            catch (e) {
+                console.log(e)
+            }
+        }else{
+            req.flash('signupErr','Пароли не совпадают')
+            res.redirect('/account/signup')
         }
     }
+
 
 
 

@@ -1,1 +1,40 @@
-фыва
+<div>
+
+<h2>Welcome!</h2>
+    <form>
+        <input type="date" onchange="seeDate(this)">
+    </form>
+
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+    <script>
+
+        moment().format();
+        let start = moment().startOf('month')
+
+
+
+        seeDate = (e) => {
+            let nowdae = e.value
+            console.log(moment().startOf('month').isBefore(moment(nowdae)));
+        }
+
+        async function showAvatar() {
+
+
+            let response = await fetch('http://localhost:3000/wallet/all');
+            let users = await response.json();
+
+            var obj = JSON.parse(users);
+
+            for (var prop in obj) {
+                console.log("obj." + prop + " = " + obj[prop]);
+            }
+
+
+
+
+        }
+
+        showAvatar();
+    </script>
+</div>
